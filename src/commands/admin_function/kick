@@ -1,0 +1,23 @@
+const {SlashCommandBuilder, PermissionFlagsBits} = require('discord.js')
+
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('kick')
+		.setDescription('kick someone')
+        .addUserOption(option => option.setName('target').setDescription(`wt u wat kick`))
+        .addStringOption(option => option.setName('reason').setDescription(`The reason`))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
+	async execute(interaction) {
+        const user = interaction.option.getUser('target')
+        let reason = interaction.option.getString(`reason`)
+        const member = await interaction.guild.fetch(user.id).catch(console.error)
+        if (!reason) {
+            reason = `No reason`
+        }
+        await member.kick(reason).catch(console.error)
+        await user.send({
+            content:`${interaction.guild.name} kick u\n ${reason}`
+        }).catch(console.log(`Dm is off`))
+	},
+};
