@@ -1,10 +1,23 @@
 require('dotenv').config()
+const { connect } = require('mongoose');
 const {Client,Collection,GatewayIntentBits} = require('discord.js')
 const fs =  require('fs')
+const { API ,TagTypes} = require('nhentai-api')
 
-const client = new Client({intents:GatewayIntentBits.Guilds })
+const client = 
+new Client({intents:
+    [GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildVoiceStates,
+] })
+
 client.commands = new Collection()
+client.buttons = new Collection()
+client.selctMenus = new Collection()
+client.modals = new Collection()
 client.commandArray = []
+const nh_api = new API()
 
 
 const functionFolders = fs.readdirSync(`./src/functions`)
@@ -19,4 +32,8 @@ for (const folder of functionFolders) {
 
 client.handleEvents()
 client.handleCommands()
-client.login(process.env.TOKEN)
+client.handleComponents()
+client.login(process.env.TOKEN);
+(async () =>{
+    await connect(process.env.DataBaseToken).catch(console.error)
+})()
