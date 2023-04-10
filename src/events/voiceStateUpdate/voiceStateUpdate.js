@@ -1,4 +1,4 @@
-
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js')
 
 module.exports = {
     name: 'voiceStateUpdate',
@@ -11,6 +11,6 @@ module.exports = {
         }else{//move
             console.log(`${user} from ${oldState.channel} move to ${newState.channel}`)
         }
-
+        console.log(`${newState.guild.id}`)
     }
 }

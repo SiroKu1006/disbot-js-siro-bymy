@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { connect } = require('mongoose');
-const {Client,Collection,GatewayIntentBits} = require('discord.js')
+const {Client,Collection,ActivityType,GatewayIntentBits} = require('discord.js')
 const fs =  require('fs')
 const { API ,TagTypes} = require('nhentai-api')
 
