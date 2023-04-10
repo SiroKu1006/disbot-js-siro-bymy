@@ -2,7 +2,8 @@ require('dotenv').config()
 const { connect } = require('mongoose');
 const {Client,Collection,ActivityType,GatewayIntentBits} = require('discord.js')
 const fs =  require('fs')
-const { API ,TagTypes} = require('nhentai-api')
+const { API ,TagTypes} = require('nhentai-api');
+const { Console } = require('console');
 
 const client = 
 new Client({intents:
@@ -37,3 +38,4 @@ client.login(process.env.TOKEN);
 (async () =>{
     await connect(process.env.DataBaseToken).catch(console.error)
 })()
+require('http').createServer((req, res) => res.end('Bot is alive!')).listen(3000)
